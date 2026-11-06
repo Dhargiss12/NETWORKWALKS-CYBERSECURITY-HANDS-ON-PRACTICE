@@ -1,220 +1,210 @@
-# Week 01 – Wireshark SOC Investigation
+# Week 01 – Extra: Cybersecurity Lab Environment Setup
 
 <p align="left">
-  <img src="https://img.shields.io/badge/Networkwalks-Cybersecurity%20Internship-blue?style=for-the-badge" alt="Networkwalks Internship" />
-  <img src="https://img.shields.io/badge/Tool-Wireshark-1679A7?style=for-the-badge&logo=wireshark&logoColor=white" alt="Wireshark" />
-  <img src="https://img.shields.io/badge/Tool-TShark-lightblue?style=for-the-badge" alt="TShark" />
-  <img src="https://img.shields.io/badge/Focus-SOC%20Analysis-red?style=for-the-badge" alt="SOC Analysis" />
-  <img src="https://img.shields.io/badge/Status-Completed-success?style=for-the-badge" alt="Completed" />
+  <img src="https://img.shields.io/badge/Networkwalks-Cybersecurity%20Internship-blue?style=for-the-badge" alt="Networkwalks" />
+  <img src="https://img.shields.io/badge/VirtualBox-Hypervisor-183A61?style=for-the-badge&logo=virtualbox&logoColor=white" alt="VirtualBox" />
+  <img src="https://img.shields.io/badge/Kali_Linux-Security_OS-557C94?style=for-the-badge&logo=kalilinux&logoColor=white" alt="Kali Linux" />
+  <img src="https://img.shields.io/badge/Focus-Lab%20Setup-red?style=for-the-badge" alt="Lab Setup" />
+  <img src="https://img.shields.io/badge/Status-Ongoing-orange?style=for-the-badge" alt="Ongoing" />
 </p>
 
 ## 📌 Project Overview
 
-As part of Week 01 of my Cybersecurity Internship at **Networkwalks Pvt. Ltd.**, I completed a hands-on Wireshark SOC Project Module consisting of six browser-based security investigation labs.
+As an additional practical activity during Week 01 of my Cybersecurity Internship at **Networkwalks Pvt. Ltd.**, I worked on building an isolated virtual cybersecurity laboratory using Oracle VirtualBox and Kali Linux.
 
-The project focused on analyzing network packet captures, identifying suspicious network activities, investigating communication patterns, and extracting security-relevant information using Wireshark.
+The objective was to establish a controlled environment for cybersecurity practice, network reconnaissance, port scanning, vulnerability assessment, and future penetration-testing exercises.
+
+The project involved configuring virtual machines, exploring virtual networking modes, verifying IPv4 connectivity, troubleshooting network issues, and preparing a clean virtual machine environment.
 
 ## 🎯 Objectives
 
-- Understand network traffic and packet-level communication.
-- Identify suspicious source and destination IP addresses.
-- Investigate TCP connections and port scanning activities.
-- Analyze TCP flags and connection responses.
-- Reconstruct network conversations using Follow TCP Stream.
-- Identify plaintext credentials and authentication traffic.
-- Investigate repeated login attempts and brute-force activity.
-- Analyze VoIP traffic and suspicious communications.
+- Install and configure Oracle VirtualBox.
+- Set up Kali Linux as a virtual machine.
+- Understand NAT, NAT Network, and Host-Only networking.
+- Configure virtual network adapters.
+- Inspect IPv4 addressing and routing.
+- Verify network connectivity and DNS resolution.
+- Create virtual machine snapshots.
+- Document laboratory configuration and troubleshooting.
 
 ## 🛠️ Tools & Technologies
 
 | Tool | Purpose |
 |---|---|
-| Wireshark | Network packet capture and analysis |
-| TShark | Command-line packet analysis |
-| Kali Linux | Cybersecurity analysis environment |
-| TCP/IP | Network communication analysis |
+| Oracle VirtualBox | Virtual machine management |
+| Kali Linux | Security testing environment |
+| Windows 11 | Host operating system |
+| 7-Zip | Archive extraction |
+| Nmap | Network scanning |
+| Wireshark | Network packet analysis |
+| TCP/IP | Network communication |
 
-## 🔬 Practical Labs
+## ⚙️ Lab Configuration
 
-### 01. Identify the Attacker's IP
-
-**Focus:** Network traffic analysis and port scanning investigation.
-
-Activities:
-- Identified the suspicious source IP address.
-- Investigated communication between attacker and target.
-- Analyzed TCP conversations.
-- Identified different destination ports.
-- Distinguished open and closed ports using TCP flags.
-- Examined protocol hierarchy and identified FTP traffic.
-
-**Concepts:** IP analysis, TCP conversations, SYN, SYN-ACK, RST, port scanning and protocol identification.
-
-### 02. Follow TCP Stream – Part 1
-
-**Focus:** TCP conversation reconstruction.
-
-Activities:
-- Followed TCP communication between network endpoints.
-- Reconstructed transmitted data.
-- Inspected application-level communication.
-
-**Concepts:** TCP stream reconstruction and packet inspection.
-
-### 03. Follow TCP Stream – Part 2
-
-**Focus:** Advanced TCP stream investigation.
-
-Activities:
-- Analyzed another network capture.
-- Reconstructed communication streams.
-- Investigated relevant transmitted information.
-
-**Concepts:** TCP stream analysis and data investigation.
-
-### 04. HTTP Plaintext Credentials
-
-**Focus:** Credential exposure analysis.
-
-Activities:
-- Examined HTTP traffic.
-- Investigated authentication requests.
-- Identified credentials transmitted in plaintext.
-
-**Concepts:** HTTP, authentication, plaintext data exposure and network security.
-
-### 05. Catch the Brute Force Attacker
-
-**Focus:** Authentication attack investigation.
-
-Activities:
-- Identified repeated login attempts.
-- Investigated suspicious authentication patterns.
-- Analyzed traffic associated with password guessing.
-
-**Concepts:** Brute-force attacks, login analysis and suspicious traffic identification.
-
-### 06. Catch the Call Scammer
-
-**Focus:** VoIP traffic investigation.
-
-Activities:
-- Investigated captured VoIP traffic.
-- Analyzed recorded communication.
-- Identified suspicious call activity.
-
-**Concepts:** VoIP analysis and communication investigation.
-
-## 💻 Wireshark Display Filters Practiced
-
-### IP Address Investigation
-
-Identify traffic from a specific source:
-
-```wireshark
-ip.src == 192.168.10.66
-```
-
-Identify traffic going to a specific destination:
-
-```wireshark
-ip.dst == 192.168.10.20
-```
-
-Filter communication between two endpoints:
-
-```wireshark
-ip.addr == 192.168.10.66 && ip.addr == 192.168.10.20
-```
-
-### TCP Connection Analysis
-
-Initial TCP SYN packets:
-
-```wireshark
-tcp.flags.syn == 1 && tcp.flags.ack == 0
-```
-
-SYN-ACK responses:
-
-```wireshark
-tcp.flags.syn == 1 && tcp.flags.ack == 1
-```
-
-TCP reset packets:
-
-```wireshark
-tcp.flags.reset == 1
-```
-
-### Protocol Identification
-
-```wireshark
-ftp
-```
-
-```wireshark
-http
-```
-
-```wireshark
-dns
-```
-
-```wireshark
-icmp
-```
-
-### FTP Authentication Investigation
-
-```wireshark
-ftp.request.command == "USER" || ftp.request.command == "PASS"
-```
-
-## 📚 Key Technical Concepts Learned
-
-| Concept | Learning Outcome |
+| Component | Configuration |
 |---|---|
-| Packet Analysis | Understanding captured network packets |
-| IP Address Analysis | Identifying communication endpoints |
-| TCP Three-Way Handshake | Understanding SYN, SYN-ACK and ACK |
-| TCP Flags | Identifying connection requests and resets |
-| Port Scanning | Investigating attempts to access multiple ports |
-| Protocol Hierarchy | Identifying protocols in captured traffic |
-| Follow TCP Stream | Reconstructing network conversations |
-| FTP Authentication | Understanding USER and PASS commands |
-| HTTP Security | Recognizing plaintext credential exposure |
-| Brute Force Detection | Identifying repeated login attempts |
-| VoIP Analysis | Investigating voice communication traffic |
+| Host OS | Windows 11 |
+| Host RAM | 16 GB |
+| Processor | Intel Core i5-1334U |
+| Hypervisor | Oracle VirtualBox |
+| Security OS | Kali Linux |
+| Kali RAM | 4096 MB |
+| Kali CPU | 2 CPUs |
+| Virtual Networking | NAT / Host-Only |
+| IP Configuration | DHCP / Static IPv4 |
 
-## 📸 Screenshots & Evidence
+## 🪜 Implementation Steps
 
-Investigation screenshots are organized by individual lab.
+### 01. Install 7-Zip
+
+Installed 7-Zip to extract compressed virtual machine packages.
+
+Download: https://www.7-zip.org/
+
+### 02. Install Oracle VirtualBox
+
+Installed Oracle VirtualBox to create and manage virtual machines.
+
+Download: https://www.virtualbox.org/wiki/Downloads
+
+### 03. Configure Virtual Networking
+
+Explored the different VirtualBox networking modes.
+
+| Network Mode | Description |
+|---|---|
+| NAT | Provides external network access to a VM |
+| NAT Network | Allows connected VMs to communicate and access external networks |
+| Host-Only | Enables private communication between the host and VMs |
+| Bridged Adapter | Connects a VM directly to the physical network |
+
+### 04. Install Kali Linux
+
+Downloaded and configured Kali Linux as a virtual machine.
+
+Configuration:
+- RAM: 4096 MB
+- CPU: 2 cores
+- Network Adapter: NAT
+- Operating System: Kali Linux
+
+Download: https://www.kali.org/get-kali/
+
+### 05. Configure Kali Linux Networking
+
+Used Linux networking commands to inspect the network configuration.
+
+**IP Address:**
+```bash
+ip addr
+```
+
+**Network Interfaces:**
+```bash
+ip link
+```
+
+**Routing Table:**
+```bash
+ip route
+```
+
+**DNS Configuration:**
+```bash
+cat /etc/resolv.conf
+```
+
+### 06. Verify Network Connectivity
+
+Performed connectivity and DNS resolution checks.
+
+**Gateway Connectivity:**
+```bash
+ping -c 4 <GATEWAY_IP>
+```
+
+**Internet Connectivity:**
+```bash
+ping -c 4 8.8.8.8
+```
+
+**DNS Resolution:**
+```bash
+nslookup google.com
+```
+
+### 07. Create a Virtual Machine Snapshot
+
+Created a recovery point after the initial Kali Linux configuration.
+
+Example snapshot name:
 
 ```text
-screenshots/
-├── lab-01/
-├── lab-02/
-├── lab-03/
-├── lab-04/
-├── lab-05/
-└── lab-06/
+Kali-Linux-Initial-Setup
 ```
 
-## 💡 Key Takeaways
+This provides a way to restore the virtual machine to a previous working configuration before performing further experiments.
 
-- Learned to identify suspicious network activities through packet analysis.
-- Understood TCP connection patterns and port scanning behavior.
-- Explored how network protocols reveal application-level communication.
-- Identified security risks associated with unencrypted authentication.
-- Recognized repeated login attempts as potential brute-force activity.
-- Understood how packet-level evidence supports security investigations.
+## 🔎 Lab Verification
 
-## 🔐 Security Disclaimer
+| Test | Command | Purpose |
+|---|---|---|
+| IP Address | `ip addr` | Inspect assigned IP |
+| Network Interface | `ip link` | Check interface status |
+| Routing | `ip route` | Inspect routing information |
+| Gateway | `ping -c 4 <GATEWAY_IP>` | Test gateway connectivity |
+| Internet | `ping -c 4 8.8.8.8` | Test external connectivity |
+| DNS | `nslookup google.com` | Verify DNS resolution |
+| Nmap | `nmap --version` | Verify Nmap installation |
 
-All exercises were performed within the authorized training environments provided for the internship.
+## 🐞 Problems Encountered & Troubleshooting
 
-This repository is intended for educational purposes and defensive cybersecurity learning. No unauthorized systems or networks were targeted.
+### 01. Kali Linux Network Connectivity
+
+**Issue:** Network connectivity was unavailable after changing VirtualBox network adapter settings.
+
+**Troubleshooting:**
+- Checked VirtualBox network adapter configuration.
+- Verified virtual network cable connection.
+- Inspected interfaces using `ip link`.
+- Checked IP addressing and routing.
+- Restarted the network connection when required.
+
+### 02. Kali Linux Startup Issue
+
+**Issue:** The graphical desktop did not load correctly during virtual machine startup.
+
+**Troubleshooting:**
+- Checked virtual machine resource allocation.
+- Reviewed VirtualBox configuration.
+- Performed a complete power-off and restart.
+- Verified virtual machine startup.
+
+**Result:** The graphical desktop loaded successfully after restarting the virtual machine.
+
+## 💡 Key Learnings
+
+- Understanding VirtualBox virtualization and virtual machine configuration.
+- Comparing NAT, NAT Network, and Host-Only networking.
+- Understanding IPv4 addressing, gateways, and DNS.
+- Practicing Linux network troubleshooting commands.
+- Verifying connectivity and routing.
+- Understanding virtual machine snapshots and recovery.
+- Building a foundation for practical cybersecurity exercises.
+
+## 🔐 Security & Ethical Use
+
+This laboratory is intended for educational purposes and authorized cybersecurity testing.
+
+All scanning, reconnaissance, vulnerability assessment, and testing activities must be restricted to systems owned by me or systems for which explicit permission has been granted.
+
+## 🔗 Tools & Resources
+
+- [7-Zip](https://www.7-zip.org/)
+- [Oracle VirtualBox](https://www.virtualbox.org/wiki/Downloads)
+- [Kali Linux](https://www.kali.org/get-kali/)
+- [Nmap](https://nmap.org/)
+- [Wireshark](https://www.wireshark.org/)
 
 ## 🏢 Internship Information
 
@@ -222,9 +212,11 @@ This repository is intended for educational purposes and defensive cybersecurity
 |---|---|
 | Organization | Networkwalks Pvt. Ltd. |
 | Program | Cybersecurity Internship |
-| Week | 01 |
-| Project | Wireshark SOC Project Module (Extra) |
-| Domain | Network Security / SOC Analysis |
+| Week | 01 – Extra |
+| Project | Cybersecurity Lab Environment Setup |
+| Domain | Cybersecurity / Virtualization / Networking |
+| Hypervisor | Oracle VirtualBox |
+| Operating System | Kali Linux |
 | Status | Completed |
 
 ## 👤 Author
@@ -238,4 +230,4 @@ B.Tech – Computer Science and Engineering (Cyber Security)
 
 ---
 
-*Learning through practical investigation. Building cybersecurity skills one lab at a time.*
+*Building a practical cybersecurity foundation through virtualization, Linux, networking, and hands-on experimentation.*
